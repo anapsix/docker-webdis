@@ -1,0 +1,8 @@
+webdis:
+  build: .
+  ports:
+   - "7379:7379"
+  links:
+   - redis
+redis:
+  image: redis
