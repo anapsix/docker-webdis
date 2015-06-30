@@ -1,3 +1,5 @@
+[![Deploy to Tutum](https://s.tutum.co/deploy-to-tutum.svg)](https://dashboard.tutum.co/stack/deploy/)
+
 [![](https://badge.imagelayers.io/anapsix/webdis:latest.svg)](https://imagelayers.io/?images=anapsix/webdis:latest)
 
 [Webdis](http://webd.is) (by Nicolas Favre-Félix) is a simple HTTP server which forwards commands to Redis and sends the reply back using a format of your choice. Accessing /COMMAND/arg0/arg1/.../argN[.ext] on Webdis executes the command on Redis and returns the response; the reply format can be changed with the optional extension (.json, .txt…).

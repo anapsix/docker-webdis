@@ -1,0 +1,25 @@
+lb:
+  image: tutum/haproxy
+  restart: always
+  links:
+    - webdis:webdis
+  ports:
+    - "80:7379"
+  roles:
+    - global
+
+webdis:
+  image: anapsix/webdis
+  restart: always
+  target_num_containers: 1
+  ports:
+    - "7379"
+  links:
+    - redis:redis
+  deployment_strategy: every_node
+
+redis:
+  image: redis
+  restart: always
+  target_num_containers: 1
+  deployment_strategy: every_node
