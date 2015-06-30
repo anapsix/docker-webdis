@@ -14,8 +14,7 @@ RUN apk update && apk upgrade && \
     apk del --purge alpine-sdk libevent-dev bsd-compat-headers git && \
     apk add libevent
 
-
-#ENTRYPOINT ["/entrypoint.sh"]
-CMD ["webdis","/etc/webdis.json"]
+ADD docker-entrypoint.sh /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
 
 EXPOSE 7379
