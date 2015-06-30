@@ -10,10 +10,11 @@ RUN apk update && apk upgrade && \
     mkdir -p /usr/share/doc/webdis   && \
     cp README.markdown /usr/share/doc/webdis/README && \
     cd /tmp && rm -rf /tmp/webdis    && \
-    apk del --purge alpine-sdk libevent-dev bsd-compat-headers git
+    apk del --purge alpine-sdk libevent-dev bsd-compat-headers git && \
+    apk add libevent
 
 
 #ENTRYPOINT ["/entrypoint.sh"]
-CMD ["/usr/local/bin/webdis /etc/webdis.json"]
+CMD ["webdis","/etc/webdis.json"]
 
 EXPOSE 7379
