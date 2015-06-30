@@ -1,25 +1,24 @@
 lb:
-  image: tutum/haproxy
-  restart: always
+  image: 'tutum/haproxy:latest'
+  environment:
+    - BACKEND_PORT=7379
   links:
-    - webdis:webdis
+    - webdis:webapp
   ports:
-    - "80:7379"
+    - '80:80'
+    - '1936:1936'
+  restart: always
   roles:
     - global
-
-webdis:
-  image: anapsix/webdis
-  restart: always
-  target_num_containers: 1
-  ports:
-    - "7379"
-  links:
-    - redis:redis
-  deployment_strategy: every_node
-
 redis:
-  image: redis
+  image: 'redis:latest'
+  expose:
+    - '6379'
   restart: always
-  target_num_containers: 1
-  deployment_strategy: every_node
+webdis:
+  image: 'anapsix/webdis:latest'
+  expose:
+    - '7379'
+  links:
+    - redis
+  restart: always
