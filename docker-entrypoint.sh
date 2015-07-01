@@ -10,6 +10,7 @@ tutum_compat() {
 tutum_compat || true
 
 if [ $# -eq 0 ]; then
+  webdis_config="/etc/webdis.json"
   echo "starting webdis.." >&2
   set -- webdis /etc/webdis.json
 fi
