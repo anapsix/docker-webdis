@@ -9,7 +9,8 @@ Documentation is available at author's site: [http://webd.is/#http](http://webd.
 
 # Usage
 
-You can spin it up on Tutum.co: [![Deploy to Tutum](https://s.tutum.co/deploy-to-tutum.svg)](https://dashboard.tutum.co/stack/deploy/)
+You can spin it up on [Tutum.co](http://tutum.co)  
+[![Deploy to Tutum](https://s.tutum.co/deploy-to-tutum.svg)](https://dashboard.tutum.co/stack/deploy/)
 
 Link redis container manually and run:
 
@@ -22,8 +23,15 @@ Use Docker Compose:
 
 Try accessing it with curl:
 
-    curl http://127.0.0.1:7379/SET/hello/world
-    curl http://127.0.0.1:7379/GET/hello
+* directly:
+
+        curl http://127.0.0.1:7379/SET/hello/world
+        curl http://127.0.0.1:7379/GET/hello
+
+* or via haproxy:
+
+        curl http://127.0.0.1:8080/SET/hello/world
+        curl http://127.0.0.1:8080/GET/hello
 
 # TODO
 Make configurable via ENV/args

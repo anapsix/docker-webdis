@@ -6,7 +6,6 @@ RUN apk update && apk upgrade && \
     git clone --depth 1 http://github.com/nicolasff/webdis.git /tmp/webdis && \
     cd /tmp/webdis && make clean all && \
     sed -i '/redis_host/s/"127.*"/"redis"/g' webdis.json && \
-    sed -i '/logfile.*$/d;/verbosity/s/,//' webdis.json  && \
     cp webdis /usr/local/bin/        && \
     cp webdis.json /etc/             && \
     mkdir -p /usr/share/doc/webdis   && \
