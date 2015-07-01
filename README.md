@@ -1,4 +1,3 @@
-[![Deploy to Tutum](https://s.tutum.co/deploy-to-tutum.svg)](https://dashboard.tutum.co/stack/deploy/)
 
 [![](https://badge.imagelayers.io/anapsix/webdis:latest.svg)](https://imagelayers.io/?images=anapsix/webdis:latest)
 
@@ -9,6 +8,9 @@ Webdis implements ACL by IP/CIDR, by HTTP Auth or both with list of explicitly a
 Documentation is available at author's site: [http://webd.is/#http](http://webd.is/#http).
 
 # Usage
+
+You can spin it up on Tutum.co: [![Deploy to Tutum](https://s.tutum.co/deploy-to-tutum.svg)](https://dashboard.tutum.co/stack/deploy/)
+
 Link redis container manually and run:
 
     docker run -d --name r4w redis
