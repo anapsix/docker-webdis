@@ -3,7 +3,7 @@ set -e
 
 webdis_config="/etc/webdis.json"
 
-trap "echo 'quitting..'; killall redis-server webdis; exit" SIGINT SIGQUIT SIGKILL SIGTERM SIGHUP
+trap "{ echo 'quitting..'; killall redis-server webdis; exit; }" SIGINT SIGQUIT SIGKILL SIGTERM SIGHUP
 
 tutum_compat() {
   if [ -n "$REDIS_ENV_TUTUM_IP_ADDRESS" ]; then
