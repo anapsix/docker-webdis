@@ -3,7 +3,15 @@ set -e
 
 webdis_config="/etc/webdis.json"
 
-trap "{ echo 'quitting..'; killall redis-server webdis; exit; }" SIGINT SIGQUIT SIGKILL SIGTERM SIGHUP
+eexit() {
+  echo 'quitting..' >&2
+  killall redis-server
+  killall webdis
+  exit
+}
+
+# I don't think it does what I think it does.. 
+trap eexit SIGINT SIGQUIT SIGKILL SIGTERM SIGHUP
 
 tutum_compat() {
   if [ -n "$REDIS_ENV_TUTUM_IP_ADDRESS" ]; then
@@ -56,7 +64,7 @@ cat - <<EOF
     }
   ],
 
-  "verbosity": ${VERBOSITY:-3},
+  "verbosity": ${VERBOSITY:-99},
   "logfile": "${LOGFILE:-/webdis.log}"
 }
 EOF
@@ -70,7 +78,7 @@ if [ $# -eq 0 ]; then
   write_config > ${webdis_config}
 
   echo "starting webdis.." >&2
-  sh -c "webdis ${webdis_config}"
+  sh -c "webdis ${webdis_config}" >&2
 fi
 
 exec "$@"
