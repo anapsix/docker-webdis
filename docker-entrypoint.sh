@@ -27,7 +27,7 @@ install_redis() {
     echo "installing redis-server.." >&2
     apk update && apk add redis
     echo "starting redis-server.." >&2
-    nohup redis-server >/redis-server.log &
+    redis-server >/redis-server.log 2>&1 &
   fi
 }
 
@@ -77,8 +77,10 @@ if [ $# -eq 0 ]; then
   echo "writing config.." >&2
   write_config > ${webdis_config}
 
+  tail -F ${LOGFILE:-/webdis.log} &
   echo "starting webdis.." >&2
-  sh -c "webdis ${webdis_config}" >&2
+  webdis ${webdis_config}
+
 fi
 
 exec "$@"
