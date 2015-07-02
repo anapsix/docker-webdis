@@ -77,6 +77,10 @@ if [ $# -eq 0 ]; then
   echo "writing config.." >&2
   write_config > ${webdis_config}
 
+  echo "taking a 3 second nap.." >&2
+  for i in 3 2 1; do echo -n "$i " >&2; sleep 1; done
+  echo
+
   tail -F ${LOGFILE:-/webdis.log} &
   echo "starting webdis.." >&2
   webdis ${webdis_config}

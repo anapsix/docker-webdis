@@ -1,9 +1,11 @@
 FROM alpine
 MAINTAINER Anastas Dancha <anapsix@random.io>
 
+ENV WEBDIS_REPO https://github.com/nicolasff/webdis.git
+
 RUN apk update && apk upgrade && \
     apk add alpine-sdk libevent-dev bsd-compat-headers git    && \
-    git clone --depth 1 http://github.com/nicolasff/webdis.git /tmp/webdis && \
+    git clone --depth 1 $WEBDIS_REPO /tmp/webdis && \
     cd /tmp/webdis && make clean all && \
     sed -i '/redis_host/s/"127.*"/"redis"/g' webdis.json && \
     cp webdis /usr/local/bin/        && \
