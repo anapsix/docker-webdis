@@ -46,7 +46,7 @@ cat - <<EOF
   "http_port": ${HTTP_PORT:-7379},
 
   "threads": ${THREADS:-5},
-  "pool_size": ${POOL_SIZE:-20},
+  "pool_size": ${POOL_SIZE:-10},
 
   "daemonize": false,
   "websockets": ${WEBSOCKETS:-true},
