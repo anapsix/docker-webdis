@@ -6,8 +6,6 @@ webdis_config="/etc/webdis.json"
 tutum_compat() {
   if [ -n "$REDIS_ENV_TUTUM_IP_ADDRESS" ]; then
     echo "${REDIS_ENV_TUTUM_IP_ADDRESS%/*}  redis" >> /etc/hosts
-  else
-    echo "127.0.0.1  redis" >> /etc/hosts
   fi
 }
 
@@ -36,7 +34,7 @@ cat - <<EOF
   "acl": [
     {
       "disabled": [${ACL_DISABLED}]
-    },"
+    },
 
     {
       "http_basic_auth": "${ACL_HTTP_BASIC_AUTH:-user:password}",
