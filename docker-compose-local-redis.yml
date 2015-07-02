@@ -1,0 +1,16 @@
+haproxy:
+  image: 'tutum/haproxy:latest'
+  environment:
+    - BACKEND_PORT=7379
+  links:
+    - 'webdis'
+  ports:
+    - '8080:80'
+    - '1936:1936'
+
+webdis:
+  build: .
+  ports:
+   - '7379:7379'
+  environment:
+   - LOCAL_REDIS=true

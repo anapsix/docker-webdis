@@ -3,9 +3,23 @@ set -e
 
 webdis_config="/etc/webdis.json"
 
+trap "echo 'quitting..'; killall redis-server webdis; exit" SIGINT SIGQUIT SIGKILL SIGTERM SIGHUP
+
 tutum_compat() {
   if [ -n "$REDIS_ENV_TUTUM_IP_ADDRESS" ]; then
     echo "${REDIS_ENV_TUTUM_IP_ADDRESS%/*}  redis" >> /etc/hosts
+  elif [ -n "$LOCAL_REDIS" ] || [ -n "$INSTALL_REDIS" ]; then
+    echo "127.0.0.1  redis" >> /etc/hosts
+  fi
+}
+
+install_redis() {
+  if [ -n "$LOCAL_REDIS" ] || [ -n "$INSTALL_REDIS" ]; then
+    REDIS_HOST="127.0.0.1"
+    echo "installing redis-server.." >&2
+    apk update && apk add redis
+    echo "starting redis-server.." >&2
+    nohup redis-server >/redis-server.log &
   fi
 }
 
@@ -48,13 +62,15 @@ cat - <<EOF
 EOF
 }
 
-tutum_compat || true
-echo "writing config.." >&2
-write_config > ${webdis_config}
-
 if [ $# -eq 0 ]; then
+  tutum_compat || true
+  install_redis
+
+  echo "writing config.." >&2
+  write_config > ${webdis_config}
+
   echo "starting webdis.." >&2
-  set -- webdis ${webdis_config}
+  sh -c "webdis ${webdis_config}"
 fi
 
 exec "$@"
