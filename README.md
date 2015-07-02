@@ -12,6 +12,10 @@ Documentation is available at author's site: [http://webd.is/#http](http://webd.
 You can spin it up on [Tutum.co](http://tutum.co)  
 [![Deploy to Tutum](https://s.tutum.co/deploy-to-tutum.svg)](https://dashboard.tutum.co/stack/deploy/)
 
+Start all-in-one (includes Redis):
+
+   docker run -d -p 7379:7379 -e LOCAL_REDIS=true anapsix/webdis
+
 Link redis container manually and run:
 
     docker run -d --name r4w redis
