@@ -14,7 +14,7 @@ You can spin it up on [Tutum.co](http://tutum.co)
 
 Start all-in-one (includes Redis):
 
-   docker run -d -p 7379:7379 -e LOCAL_REDIS=true anapsix/webdis
+    docker run -d -p 7379:7379 -e LOCAL_REDIS=true anapsix/webdis
 
 Link redis container manually and run:
 
