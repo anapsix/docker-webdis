@@ -16,4 +16,4 @@ webdis:
    - 'redis'
 
 redis:
-  image: 'redis:latest'
+  image: 'anapsix/redis:latest'

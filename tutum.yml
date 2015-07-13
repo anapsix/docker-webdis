@@ -18,5 +18,5 @@ webdis:
   restart: always
 
 redis:
-  image: 'redis:latest'
+  image: 'anapsix/redis:latest'
   restart: always
