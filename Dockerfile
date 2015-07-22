@@ -3,7 +3,7 @@ MAINTAINER Anastas Dancha <anapsix@random.io>
 
 ENV WEBDIS_REPO https://github.com/nicolasff/webdis.git
 
-RUN apk update && apk upgrade && \
+RUN apk upgrade --update && \
     apk add alpine-sdk libevent-dev bsd-compat-headers git    && \
     git clone --depth 1 $WEBDIS_REPO /tmp/webdis && \
     cd /tmp/webdis && make clean all && \
