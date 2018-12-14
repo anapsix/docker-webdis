@@ -41,7 +41,7 @@ cat - <<EOF
   "pool_size": ${POOL_SIZE:-10},
 
   "daemonize": false,
-  "websockets": ${WEBSOCKETS:-true},
+  "websockets": ${WEBSOCKETS:-false},
 
   "database": ${DATABASE:-0},
 
