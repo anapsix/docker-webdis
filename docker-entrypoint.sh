@@ -4,30 +4,22 @@ set -e
 webdis_config="/etc/webdis.json"
 
 eexit() {
-  echo 'quitting..' >&2
+  echo >&2 'quitting..'
   killall redis-server
   killall webdis
   exit
 }
 
-# I don't think it does what I think it does.. 
+# I don't think it does what I think it does..
 trap eexit SIGINT SIGQUIT SIGKILL SIGTERM SIGHUP
 
-tutum_compat() {
-  if [ -n "$REDIS_ENV_TUTUM_IP_ADDRESS" ]; then
-    echo "${REDIS_ENV_TUTUM_IP_ADDRESS%/*}  redis" >> /etc/hosts
-  elif [ -n "$LOCAL_REDIS" ] || [ -n "$INSTALL_REDIS" ]; then
-    echo "127.0.0.1  redis" >> /etc/hosts
-  fi
-}
-
-install_redis() {
+strart_local_redis() {
   if [ -n "$LOCAL_REDIS" ] || [ -n "$INSTALL_REDIS" ]; then
     REDIS_HOST="127.0.0.1"
-    echo "installing redis-server.." >&2
-    apk update && apk add redis
-    echo "starting redis-server.." >&2
-    redis-server >/redis-server.log 2>&1 &
+    echo >&2 "installing redis-server.."
+    apk add --no-cache -q redis
+    echo >&2 "starting local redis-server.."
+    redis-server --daemonize yes
   fi
 }
 
@@ -65,23 +57,17 @@ cat - <<EOF
   ],
 
   "verbosity": ${VERBOSITY:-99},
-  "logfile": "${LOGFILE:-/webdis.log}"
+  "logfile": "${LOGFILE:-/dev/stdout}"
 }
 EOF
 }
 
 if [ $# -eq 0 ]; then
-  tutum_compat || true
-  install_redis
+  strart_local_redis
 
   echo "writing config.." >&2
   write_config > ${webdis_config}
 
-  echo "taking a 3 second nap.." >&2
-  for i in 3 2 1; do echo -n "$i " >&2; sleep 1; done
-  echo
-
-  tail -F ${LOGFILE:-/webdis.log} &
   echo "starting webdis.." >&2
   webdis ${webdis_config}
 
