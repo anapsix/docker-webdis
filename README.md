@@ -51,34 +51,23 @@ $ docker run -it --rm -p 7379:7379 -e LOCAL_REDIS=true w
 $ curl 127.0.0.1:7379/subscribe/hello
 
 
-## Step 3 (in terminal session #3)
-# curl set endpoint
-
-$ curl 127.0.0.1:7379/set/hello/world
-{"set":[true,"OK"]}
-
-
-## Step 4 (in terminal session #2)
+## Step 3 (in terminal session #2)
 # abort previous subscribe curl, and start new one
 
-$ curl 127.0.0.1:7379/subscribe/hello
-curl: (7) Failed to connect to 127.0.0.1 port 7379: Connection refused
 
-
-## Step 5 (in terminal session #1)
+## Step 4 (in terminal session #1)
 # check docker logs
 
-$ docker run -it --rm -p 7379:7379 -e LOCAL_REDIS=true w
+$ docker run -it --rm -p 7379:7379 -e LOCAL_REDIS=true -e WEBSOCKETS=true w
 installing redis-server..
 starting local redis-server..
-17:C 14 Dec 17:42:59.397 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
-17:C 14 Dec 17:42:59.397 # Redis version=4.0.11, bits=64, commit=bca38d14, modified=0, pid=17, just started
-17:C 14 Dec 17:42:59.397 # Configuration loaded
+18:C 14 Dec 18:13:06.446 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+18:C 14 Dec 18:13:06.446 # Redis version=4.0.11, bits=64, commit=bca38d14, modified=0, pid=18, just started
+18:C 14 Dec 18:13:06.446 # Configuration loaded
 writing config..
 starting webdis..
-[21] 14 Dec 17:42:59 35 Webdis 0.1.5-dev up and running
-[21] 14 Dec 17:43:02 0 /subscribe/hello
-[21] 14 Dec 17:43:05 0 /set/hello/world
+[22] 14 Dec 18:13:06 35 Webdis 0.1.5-dev up and running
+[22] 14 Dec 18:13:08 0 /subscribe/hello
 Segmentation fault
 ```
 
