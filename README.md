@@ -18,6 +18,10 @@ Link redis container manually and run:
     docker run -d --name r4w redis
     docker run -d -p 7379:7379 --link r4w:redis anapsix/webdis
 
+Use external redis server:
+
+    docker run -d -p 7379:7379 -e REDIS_HOST=redis-server-host anapsix/webdis
+
 Use Docker Compose:
 
     docker-compose up

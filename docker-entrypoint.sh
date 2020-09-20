@@ -14,12 +14,14 @@ eexit() {
 trap eexit SIGINT SIGQUIT SIGKILL SIGTERM SIGHUP
 
 strart_local_redis() {
-  if [ -n "$LOCAL_REDIS" ] || [ -n "$INSTALL_REDIS" ]; then
-    REDIS_HOST="127.0.0.1"
-    echo >&2 "installing redis-server.."
-    apk add --no-cache -q redis
-    echo >&2 "starting local redis-server.."
-    redis-server --daemonize yes
+  if [ -z "${REDIS_HOST}" ]; then  ## use external redis
+    if [ -n "$LOCAL_REDIS" ] || [ -n "$INSTALL_REDIS" ]; then
+      REDIS_HOST="127.0.0.1"
+      echo >&2 "installing redis-server.."
+      apk add --no-cache -q redis
+      echo >&2 "starting local redis-server.."
+      redis-server --daemonize yes
+    fi
   fi
 }
 
