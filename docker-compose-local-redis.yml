@@ -1,6 +1,9 @@
-webdis:
-  build: .
-  ports:
-   - '7379:7379'
-  environment:
-   - LOCAL_REDIS=true
+version: '3.9'
+
+services:
+  webdis:
+    build: .
+    ports:
+    - '7379:7379'
+    environment:
+    - LOCAL_REDIS=true

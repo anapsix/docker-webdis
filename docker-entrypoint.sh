@@ -58,7 +58,7 @@ cat - <<EOF
     }
   ],
 
-  "verbosity": ${VERBOSITY:-99},
+  "verbosity": ${VERBOSITY:-8},
   "logfile": "${LOGFILE:-/dev/stdout}"
 }
 EOF

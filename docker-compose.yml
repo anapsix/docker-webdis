@@ -1,19 +1,14 @@
-haproxy:
-  image: 'tutum/haproxy:0.1'
-  environment:
-    - BACKEND_PORT=7379
-  links:
-    - 'webdis'
-  ports:
-    - '8080:80'
-    - '1936:1936'
+version: '3.9'
 
-webdis:
-  build: .
-  ports:
-   - '7379:7379'
-  links:
-   - 'redis'
+services:
+  webdis:
+    build: .
+    ports:
+    - '7379:7379'
+    environment:
+    - REDIS_HOST=redis
+    depends_on:
+    - redis
 
-redis:
-  image: 'anapsix/redis:latest'
+  redis:
+    image: 'docker.io/redis:7-alpine'
