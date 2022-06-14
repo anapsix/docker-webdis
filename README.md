@@ -7,6 +7,20 @@ Webdis implements ACL by IP/CIDR, by HTTP Auth or both with list of explicitly a
 
 Documentation is available at author's site: [http://webd.is/#http](http://webd.is/#http).
 
+## Build
+
+Build as per usual
+
+    docker build -t webdis .
+
+Build a multi-arch image
+
+    # you might need to create a multiarch builder
+    docker buildx create --name multiarch --bootstrap --platform linux/arm64,linux/amd64
+
+    # build using buildx, specifying all the platforms you want to build for
+    docker buildx build --builder multiarch --platform linux/arm64,linux/amd64 -t webdis .
+
 ## Usage
 
 Start all-in-one (includes Redis):
