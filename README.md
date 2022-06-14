@@ -1,5 +1,7 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/anapsix/webdis)](https://hub.docker.com/r/anapsix/webdis/)
 ![Docker Image Size (tag)](https://img.shields.io/docker/image-size/anapsix/webdis/latest)
+![linux/amd64](https://img.shields.io/badge/platform-linux%2Famd64-blue)
+![linux/arm64](https://img.shields.io/badge/platform-linux%2Farm64-blue)
 
 [Webdis](http://webd.is) (by Nicolas Favre-Félix) is a simple HTTP server which
 forwards commands to Redis and sends the reply back using a format of your
