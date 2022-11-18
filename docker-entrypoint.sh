@@ -13,14 +13,20 @@ eexit() {
 # I don't think it does what I think it does..
 trap eexit SIGINT SIGQUIT SIGKILL SIGTERM SIGHUP
 
-strart_local_redis() {
+start_local_redis() {
   if [ -z "${REDIS_HOST}" ]; then  ## use external redis
     if [ -n "$LOCAL_REDIS" ] || [ -n "$INSTALL_REDIS" ]; then
       REDIS_HOST="127.0.0.1"
-      echo >&2 "installing redis-server.."
-      apk add --no-cache -q redis
+      if ! command -v redis-server &>/dev/null; then
+        echo >&2 "installing redis-server.."
+        apk add --no-cache -q redis
+      fi
       echo >&2 "starting local redis-server.."
-      redis-server --daemonize yes
+      if [ -n "${REDIS_OPTS}" ]; then
+        redis-server ${REDIS_OPTS} &
+      else
+        redis-server --daemonize yes
+      fi
     fi
   fi
 }
@@ -65,13 +71,17 @@ EOF
 }
 
 if [ $# -eq 0 ]; then
-  strart_local_redis
+  start_local_redis
 
-  echo "writing config.." >&2
-  write_config > ${webdis_config}
+  if [ -n "${CONFIGFILE}" ]; then
+    webdis_config=${CONFIGFILE}
+  else
+    echo "writing config.." >&2
+    write_config > ${webdis_config}
+  fi
 
   echo "starting webdis.." >&2
-  webdis ${webdis_config}
+  exec webdis ${webdis_config}
 
 fi
 
